@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+require 'pp'
+
+servers = STDIN.read.split
+servers = servers.reject { |server| !server || server.length <= 0 }
+
+prefix = ARGV[0]
+postfix = ARGV[1]
+
+servers = servers.map do |server|
+  "#{prefix}#{server}#{postfix}"
+end
+
+puts "Using servers..."
+servers.each do |server, index|
+  puts "#{index}#{server}"
+end
+
+File.open('./servers.rb', 'w') do |f|
+  f.write("SERVER_LIST = " + servers.inspect)
+end
+
